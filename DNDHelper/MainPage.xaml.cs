@@ -29,7 +29,7 @@ namespace DNDHelper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnEnterNewPlayer(object sender, EventArgs e)
+        private void OnPlayerButtonPressed(object sender, EventArgs e)
         {
             string text = InitiativeEntry.Text;
             string name = "";
@@ -95,25 +95,26 @@ namespace DNDHelper
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnGetPlayerButtonPressed(object sender, EventArgs e)
+        private async void OnGetPlayerButtonPressed(object sender, EventArgs e)
         {
             if (playerList.Count == 0)
             {
-                RunFadeAnimation(CurrentPlayerLabel, "Can not start combat, not enough players added.");
                 CurrentPlayerLabel.Opacity = 100;
+                CurrentPlayerLabel.Text = "Can not start combat, not enough players added.";
+                await CurrentPlayerLabel.FadeTo(0, animationFadeTime, Easing.Linear);
                 return;
             }
 
             if (queue.Count == 0)
             {
                 playerList.Sort();
-                foreach (var player in playerList)
+                foreach(var player in playerList)
                 {
                     queue.Enqueue(player);
 
                     InitiativeStackLayout.Add(new Label
                     {
-                        Text = String.Format("{0} ({1})", player.Name, player.Initiative),
+                        Text = player.Name,
                         FontSize = 18,
                         FontFamily = "MouldyCheese",
                         TextColor = new Color(255, 255, 255),
@@ -130,7 +131,7 @@ namespace DNDHelper
                 if (InitiativeStackLayout[i] is Label)
                 {
                     var label = (Label)InitiativeStackLayout[i];
-                    if (label.Text.Split(" ")[0] == first.Name)
+                    if (label.Text == first.Name)
                         label.TextColor = Color.FromArgb("#95DFED");
                     else
                         label.TextColor = new Color(255, 255, 255);
@@ -145,16 +146,13 @@ namespace DNDHelper
             if (!combatStarted)
             {
                 // hide the ability to add more players to combat
+                AddPlayerButton.IsVisible = false;
                 AddingPlayerMessageLabel.IsVisible = false;
                 InitiativeEntry.IsVisible = false;
                 EntryPromptLabel.IsVisible = false;
 
-                // change the player display
-                CurrentPlayerLabel.TextColor = Color.FromArgb("#B454C4");
-                CurrentPlayerLabel.FontSize = 64;
-
                 // change button and title text
-                BigDisplay.IsVisible = false;
+                BigDisplay.Text = "Combat Start";
                 GetPlayerButton.Text = "Get Next Player";
             }
 
@@ -179,18 +177,14 @@ namespace DNDHelper
             InitiativeStackLayout.Clear();
 
             // re-enable all entry labels, entries, and buttons
-            BigDisplay.IsVisible = true;
             EntryPromptLabel.IsVisible = true;
             InitiativeEntry.IsVisible = true;
+            AddPlayerButton.IsVisible = true;
             AddingPlayerMessageLabel.IsVisible = true;
 
             // change the text
             BigDisplay.Text = "Initiative Tracker";
             GetPlayerButton.Text = "Start Combat";
-
-            // reset the current player tracker
-            CurrentPlayerLabel.TextColor = new Color(255, 255, 255);
-            CurrentPlayerLabel.FontSize = 32;
         }
 
         /// <summary>

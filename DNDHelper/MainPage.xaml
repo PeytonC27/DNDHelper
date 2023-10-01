@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DNDHelper.MainPage"
              BackgroundColor="#271D50"
-             BackgroundImageSource="https://4kwallpapers.com/images/walls/thumbs_3t/8995.png">
+             BackgroundImageSource="https://wallpapers.com/images/hd/hd-satisfying-e3zljza3cnvomdgu.jpg">
 
     <ScrollView>
         <VerticalStackLayout
@@ -21,7 +21,7 @@
 
             <Label
                 x:Name="EntryPromptLabel"
-                Text="Enter text below in the format: ''NAME INITIATIVE''"
+                Text="Enter text below in the format: ''NAME:INITIATIVE''"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="24"
@@ -32,12 +32,22 @@
                 x:Name="InitiativeEntry"
                 Placeholder="Enter here"
                 MaximumWidthRequest="500"
-                FontSize="16"
-                BackgroundColor="#271D50"
+                HeightRequest="100"
+                FontSize="18"
+                BackgroundColor="#7545B6"
                 PlaceholderColor="#95DFED"
                 TextColor="#95DFED"
-                FontFamily="MouldyCheese"
-                Completed="OnEnterNewPlayer"/>
+                FontFamily="MouldyCheese"/>
+
+            <Button
+                x:Name="AddPlayerButton"
+                Text="Add Player"
+                SemanticProperties.Hint="Adds a player to the initiative list"
+                Clicked="OnPlayerButtonPressed"
+                HorizontalOptions="Center" 
+                BackgroundColor="#271D50"
+                TextColor="#95DFED"
+                FontFamily="MouldyCheese"/>
 
             <Label
                 x:Name="AddingPlayerMessageLabel"
