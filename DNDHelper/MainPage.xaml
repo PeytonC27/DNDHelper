@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DNDHelper.MainPage"
+             BackgroundColor="#271D50"
+             BackgroundImageSource="https://wallpapers.com/images/hd/hd-satisfying-e3zljza3cnvomdgu.jpg">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="25"
+            Padding="30,0"
+            VerticalOptions="Center">
+
+            <Label
+                Text="Initiative Tracker"
+                x:Name="BigDisplay"
+                SemanticProperties.HeadingLevel="Level1"
+                FontSize="64"
+                HorizontalOptions="Center"
+                FontFamily="MouldyCheese"/>
+
+            <Label
+                x:Name="EntryPromptLabel"
+                Text="Enter text below in the format: ''NAME:INITIATIVE''"
+                SemanticProperties.HeadingLevel="Level2"
+                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
+                FontSize="24"
+                HorizontalOptions="Center"
+                FontFamily="MouldyCheese"/>
+
+            <Entry
+                x:Name="InitiativeEntry"
+                Placeholder="Enter here"
+                MaximumWidthRequest="500"
+                HeightRequest="100"
+                FontSize="18"
+                BackgroundColor="#7545B6"
+                PlaceholderColor="#95DFED"
+                TextColor="#95DFED"
+                FontFamily="MouldyCheese"/>
+
+            <Button
+                x:Name="AddPlayerButton"
+                Text="Add Player"
+                SemanticProperties.Hint="Adds a player to the initiative list"
+                Clicked="OnPlayerButtonPressed"
+                HorizontalOptions="Center" 
+                BackgroundColor="#271D50"
+                TextColor="#95DFED"
+                FontFamily="MouldyCheese"/>
+
+            <Label
+                x:Name="AddingPlayerMessageLabel"
+                FontSize="18"
+                HorizontalOptions="Center"
+                FontFamily="MouldyCheese"/>
+
+            <Label
+                x:Name="CurrentPlayerLabel"
+                Text="0 Registered Combatants"
+                FontSize="32"
+                HorizontalOptions="Center"
+                FontFamily="MouldyCheese"/>
+
+            <VerticalStackLayout
+                x:Name="InitiativeStackLayout"
+                IsVisible="false">
+            </VerticalStackLayout>
+
+            <Button
+                x:Name="GetPlayerButton"
+                Text="Start Combat"
+                Clicked="OnGetPlayerButtonPressed"
+                HorizontalOptions="Center"
+                BackgroundColor="#271D50"
+                TextColor="#95DFED"
+                FontFamily="MouldyCheese"/>
+
+            <Button
+                x:Name="ResetButton"
+                Text="Clear Initiative List"
+                Clicked="OnResetButtonPressed"
+                HorizontalOptions="Center"
+                BackgroundColor="#271D50"
+                TextColor="#95DFED"
+                FontFamily="MouldyCheese"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
