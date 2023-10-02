@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DNDHelper.MainPage"
+             x:Class="DNDHelper.InitiativeTrackerPage"
              BackgroundColor="#271D50"
-             BackgroundImageSource="https://wallpapers.com/images/hd/hd-satisfying-e3zljza3cnvomdgu.jpg">
+             BackgroundImageSource="https://4kwallpapers.com/images/walls/thumbs_3t/8995.png">
 
     <ScrollView>
         <VerticalStackLayout
@@ -21,7 +21,7 @@
 
             <Label
                 x:Name="EntryPromptLabel"
-                Text="Enter text below in the format: ''NAME:INITIATIVE''"
+                Text="Enter text below in the format: ''NAME INITIATIVE''"
                 SemanticProperties.HeadingLevel="Level2"
                 SemanticProperties.Description="Welcome to dot net Multi platform App U I"
                 FontSize="24"
@@ -33,21 +33,13 @@
                 Placeholder="Enter here"
                 MaximumWidthRequest="500"
                 HeightRequest="100"
-                FontSize="18"
+                FontSize="16"
+                IsSpellCheckEnabled="False"
                 BackgroundColor="#7545B6"
                 PlaceholderColor="#95DFED"
                 TextColor="#95DFED"
-                FontFamily="MouldyCheese"/>
-
-            <Button
-                x:Name="AddPlayerButton"
-                Text="Add Player"
-                SemanticProperties.Hint="Adds a player to the initiative list"
-                Clicked="OnPlayerButtonPressed"
-                HorizontalOptions="Center" 
-                BackgroundColor="#271D50"
-                TextColor="#95DFED"
-                FontFamily="MouldyCheese"/>
+                FontFamily="MouldyCheese"
+                Completed="OnAddNewPlayer"/>
 
             <Label
                 x:Name="AddingPlayerMessageLabel"
