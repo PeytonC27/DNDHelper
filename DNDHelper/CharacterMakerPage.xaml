@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DNDHelper.CharacterMakerPage"
+             BackgroundImageSource="https://img.freepik.com/premium-photo/dark-grey-black-slate-texture-with-high-resolution-background-natural-black-stone-wall_38607-306.jpg">
+
+    <ContentView>
+
+        <VerticalStackLayout
+            x:Name="MainLayout" Padding="0,-20,0,0">
+            <HorizontalStackLayout
+                x:Name="InternalLayout"
+                Padding="40,50,0,50"/>
+        </VerticalStackLayout>
+    </ContentView>
+    
+</ContentPage>

@@ -6,8 +6,16 @@
     xmlns:local="clr-namespace:DNDHelper"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
+    <TabBar>
+        <ShellContent
+            Title="Character Maker"
+            ContentTemplate="{DataTemplate local:CharacterMakerPage}"
+            Route="CharacterMakerPage" />
+    
+        <ShellContent
+            Title="Initiative Tracker"
+            ContentTemplate="{DataTemplate local:InitiativeTrackerPage}"
+            Route="InitiativeTrackerPage" />
+        
+    </TabBar>
 </Shell>
