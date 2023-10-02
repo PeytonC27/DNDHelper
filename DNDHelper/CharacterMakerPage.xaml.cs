@@ -99,6 +99,27 @@ public partial class CharacterMakerPage : ContentPage
         private string[] skills;
         private Attack[] attacks;
 
+        public DNDCharacter(string name, int STR, int DEX, int CON, int INT, int WIS, int CHA, int HP, int AC, int SPD, int PB, string skills, string attacks)
+        {
+            this.name = name;
+            this.STR = STR;
+            this.DEX = DEX;
+            this.INT = INT;
+            this.CON = CON;
+            this.WIS = WIS;
+            this.CHA = CHA;
+            this.HP = HP;
+            this.AC = AC;
+            this.SPD = SPD;
+            this.PB = PB;
+
+            ExtractSkillsAndAttacks(skills, attacks);
+        }
+
+        private void ExtractSkillsAndAttacks(string skills, string attacks)
+        {
+
+        }
 
         private class Attack
         {
