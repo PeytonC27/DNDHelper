@@ -71,14 +71,14 @@ public partial class CharacterMakerPage : ContentPage
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             };
-            if (i < 11 || i == 12)
+            if (i == 0)
+                e.Placeholder = "Enter a name";
+            else if (i < 11 || i == 12)
                 e.Placeholder = "Enter a number";
             else if (i == 11)
                 e.Placeholder = "{SKILLNAME SKILLNAME...}";
-            else if (i == 13)
-                e.Placeholder = "{NAME ROLL, NAME ROLL}";
             else
-                e.Placeholder = "Enter a name";
+                e.Placeholder = "{NAME ROLL, NAME ROLL}";
 
             hsl.Add(l);
             hsl.Add(e);
