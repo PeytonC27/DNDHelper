@@ -11,6 +11,19 @@
             <HorizontalStackLayout
                 x:Name="InternalLayout"
                 Padding="40,50,0,50"/>
+
+            <Button
+                Text = "Submit Character"
+                FontSize = "18"
+                HorizontalOptions = "Center"
+                Clicked = "SubmitCharacterButton"/>
+
+            <Label
+                x:Name="ErrorLabel"
+                Text=""
+                FontSize="16"
+                TextColor="White"/>
+
         </VerticalStackLayout>
     </ContentView>
     

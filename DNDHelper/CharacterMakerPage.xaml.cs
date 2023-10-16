@@ -1,11 +1,20 @@
+using Org.W3c.Dom;
 using System.IO.IsolatedStorage;
+using System.Text.RegularExpressions;
 
 namespace DNDHelper;
 
 public partial class CharacterMakerPage : ContentPage
 {
-	public CharacterMakerPage()
+    private List<Entry> textBoxes;
+    private string intRegex = @"^\d+$";
+    private string skillListRegex = @"^{([a-zA-Z]+\s*)+}$";
+    private string attackListRegex = @"^{([a-zA-Z]+, [0-9]d((+|-)[0-9])?+}$";
+
+    public CharacterMakerPage()
 	{
+        textBoxes = new List<Entry>();
+
         // main 6, AC, HP, SPD, SKLS/PROF, CR/LEVEL, ATKS
         string[] importantElements =
         {
@@ -26,6 +35,8 @@ public partial class CharacterMakerPage : ContentPage
         };
 
         InitializeComponent();
+
+        // setting up the two vertical stack layouts
         VerticalStackLayout vsl1 = new VerticalStackLayout()
         {
             VerticalOptions = LayoutOptions.Center,
@@ -39,6 +50,8 @@ public partial class CharacterMakerPage : ContentPage
         InternalLayout.Add(vsl1);
         InternalLayout.Add(vsl2);
         VerticalStackLayout currentLayout = vsl1;
+
+        // create all the labels and entries for the GUI
         for (int i = 0; i < importantElements.Length; i++)
         {
             if (i == 7) currentLayout = vsl2;
@@ -71,6 +84,9 @@ public partial class CharacterMakerPage : ContentPage
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
             };
+            textBoxes.Add(e);
+
+            // assigning the labels
             if (i == 0)
                 e.Placeholder = "Enter a name";
             else if (i < 11 || i == 12)
@@ -84,12 +100,67 @@ public partial class CharacterMakerPage : ContentPage
             hsl.Add(e);
             currentLayout.Add(hsl);
         }
-        MainLayout.Add(new Button()
+    }
+
+    /// <summary>
+    /// When the button is pressed, it should evaluate whether the provided data can be parsed
+    /// and saved into a DnD character sheet. If it can't, an error should be displayed.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void SubmitCharacterButton(object sender, EventArgs e)
+    {
+        string name = "";
+        int[] stats = new int[10];
+        string skills = "";
+        string attacks = "";
+        int index = 0;
+        int statIndex = 0;
+
+        // ensure the provided data was valid
+        foreach (Entry entry in textBoxes)
         {
-          Text = "Submit Character",
-          FontSize = 18,
-          HorizontalOptions = LayoutOptions.Center,
-        });
+            // string check
+            if (index == 0)
+            {
+                if (!Regex.IsMatch(entry.Text, @"[a-zA-Z0-9_]+"))
+                    HandleSubmissionError("Name is not in a valid format.");
+                stats[statIndex] = int.Parse(entry.Text);
+            }
+            // skill checks
+            else if (index == 11)
+            {
+                if (!Regex.IsMatch(entry.Text, skillListRegex))
+                    HandleSubmissionError("The skill list is not in the correct format.");
+                skills = entry.Text;
+            }
+            // attack checks
+            else if (index == 13)
+            {
+                if (!Regex.IsMatch(entry.Text, attackListRegex))
+                    HandleSubmissionError("The attack list is not in the correct format.");
+                attacks = entry.Text;
+            }
+            // number check
+            else
+            {
+                if (!Regex.IsMatch(entry.Text, intRegex))
+                    HandleSubmissionError("The attack list is not in the correct format.");
+                name = entry.Text;
+            }
+            index++;
+        }
+
+        DNDCharacter character = new DNDCharacter(name, stats, skills, attacks);
+    }
+
+    /// <summary>
+    /// Given an error message, change and display the given error
+    /// </summary>
+    /// <param name="s">The error message</param>
+    private void HandleSubmissionError(string s)
+    {
+
     }
 
     private class DNDCharacter
@@ -99,24 +170,21 @@ public partial class CharacterMakerPage : ContentPage
         private string[] skills;
         private Attack[] attacks;
 
-        public DNDCharacter(string name, int STR, int DEX, int CON, int INT, int WIS, int CHA, int HP, int AC, int SPD, int PB, string skills, string attacks)
+        public DNDCharacter(string name, int[] stats, string skills, string attacks)
         {
             this.name = name;
-            this.STR = STR;
-            this.DEX = DEX;
-            this.INT = INT;
-            this.CON = CON;
-            this.WIS = WIS;
-            this.CHA = CHA;
-            this.HP = HP;
-            this.AC = AC;
-            this.SPD = SPD;
-            this.PB = PB;
 
-            ExtractSkillsAndAttacks(skills, attacks);
+            STR = stats[0];
+            DEX = stats[1];
+            CON = stats[2];
+            INT = stats[3];
+            WIS = stats[4];
+            CHA = stats[5];
+
+            ParseSkillsAndAttacks(skills, attacks);
         }
 
-        private void ExtractSkillsAndAttacks(string skills, string attacks)
+        private void ParseSkillsAndAttacks(string skills, string attacks)
         {
 
         }
